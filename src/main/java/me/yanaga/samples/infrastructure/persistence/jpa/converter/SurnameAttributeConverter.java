@@ -2,8 +2,8 @@ package me.yanaga.samples.infrastructure.persistence.jpa.converter;
 
 import me.yanaga.samples.domain.model.Surname;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class SurnameAttributeConverter implements AttributeConverter<Surname, String> {

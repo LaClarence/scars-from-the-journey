@@ -1,26 +1,24 @@
 package me.yanaga.samples.view.jsf.converter;
 
-import com.google.common.base.Strings;
 import com.querydsl.core.annotations.QueryDelegate;
 import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.dsl.ComparablePath;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.StringExpression;
-import me.yanaga.samples.domain.model.Name;
 import me.yanaga.samples.domain.model.Surname;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter(forClass = Surname.class)
-public class SurnameConverter implements Converter {
+public class SurnameConverter implements Converter<Surname> {
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (!Strings.isNullOrEmpty(value)) {
+    public Surname getAsObject(FacesContext context, UIComponent component, String value) {
+        if (value != null && !value.isEmpty()) {
             try {
                 return Surname.of(value);
             } catch (Exception ex) {
@@ -31,7 +29,7 @@ public class SurnameConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Surname value) {
         if (value != null) {
             return value.toString();
         }

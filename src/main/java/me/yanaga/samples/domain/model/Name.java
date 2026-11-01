@@ -1,12 +1,7 @@
 package me.yanaga.samples.domain.model;
 
-import com.google.common.collect.ComparisonChain;
-
 import java.io.Serializable;
 import java.util.Objects;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Name implements Serializable, Comparable<Name> {
 
@@ -17,8 +12,10 @@ public class Name implements Serializable, Comparable<Name> {
     }
 
     public static Name of(String value) {
-        checkNotNull(value);
-        checkArgument(value.trim().length() > 0);
+        Objects.requireNonNull(value);
+        if (value.isBlank()) {
+            throw new IllegalArgumentException("Name must not be blank");
+        }
         return new Name(value);
     }
 
@@ -43,7 +40,7 @@ public class Name implements Serializable, Comparable<Name> {
 
     @Override
     public int compareTo(Name o) {
-        return ComparisonChain.start().compare(this.value, o.value).result();
+        return this.value.compareTo(o.value);
     }
 
 }
