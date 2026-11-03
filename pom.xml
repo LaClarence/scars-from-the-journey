@@ -155,5 +155,11 @@
             <artifactId>querydsl-jpa</artifactId>
             <version>${version.querydsl}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <!-- 33.7.2-jre or higher -->
+            <version>33.7.2-jre</version>
+        </dependency>
     </dependencies>
 </project>
