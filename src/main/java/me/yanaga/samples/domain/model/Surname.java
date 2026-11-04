@@ -21,8 +21,7 @@ public class Surname implements Serializable, Comparable<Surname> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Surname) {
-            Surname other = (Surname) obj;
+        if (obj instanceof Surname other) {
             return Objects.equals(this.value, other.value);
         }
         return false;

@@ -24,8 +24,13 @@ public class OrderController implements Serializable {
     // The item collections are lazy: load them inside the transaction, before the entities get detached
     @Transactional
     public List<Order> findAll() {
-        JPAQuery<Order> query = new JPAQuery<Order>(entityManager).select(QOrder.order).from(QOrder.order);
-        List<Order> orders = query.where(form.toPredicate()).orderBy(QOrder.order.id.asc()).fetch();
+        JPAQuery<Order> query = new JPAQuery<Order>(entityManager)
+                .select(QOrder.order)
+                .from(QOrder.order);
+        List<Order> orders = query
+                .where(form.toPredicate())
+                .orderBy(QOrder.order.id.asc())
+                .fetch();
         orders.forEach(order -> {
             order.getAmountOfItems();
             order.getAmountOfAbandonedItems();

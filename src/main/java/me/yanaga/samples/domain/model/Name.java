@@ -21,8 +21,7 @@ public class Name implements Serializable, Comparable<Name> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Name) {
-            Name other = (Name) obj;
+        if (obj instanceof Name other) {
             return Objects.equals(this.value, other.value);
         }
         return false;

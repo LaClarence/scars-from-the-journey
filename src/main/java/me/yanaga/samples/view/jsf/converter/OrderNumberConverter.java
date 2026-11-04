@@ -19,7 +19,7 @@ public class OrderNumberConverter implements Converter<OrderNumber> {
                 return OrderNumber.of(Integer.valueOf(value.trim()));
             } catch (Exception ex) {
                 String message = String.format("Invalid Order number: %s", value);
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message), ex);
             }
         }
         return null;

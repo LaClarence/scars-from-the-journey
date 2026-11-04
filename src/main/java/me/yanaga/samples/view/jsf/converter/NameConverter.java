@@ -22,7 +22,7 @@ public class NameConverter implements Converter<Name> {
             try {
                 return Name.of(value);
             } catch (Exception ex) {
-                throw new ConverterException(String.format("Invalid Name: %s", value));
+                throw new ConverterException(String.format("Invalid Name: %s", value), ex);
             }
         }
         return null;

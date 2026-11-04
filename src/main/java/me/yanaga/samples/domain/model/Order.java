@@ -1,13 +1,10 @@
 package me.yanaga.samples.domain.model;
 
-import com.querydsl.core.annotations.Immutable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 

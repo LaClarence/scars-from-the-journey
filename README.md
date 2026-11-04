@@ -5,14 +5,16 @@
 - Related talk (likely): [Effective and Clean Java Code? Tips and Tricks from the Real World](https://www.youtube.com/watch?v=uOrk8mZmjaM), Edson Yanaga, Jfokus 2017
 
 This version has been migrated from:
-- WildFly Swarm / Java EE 7 / Java 8 
+ * WildFly Swarm / Java EE 7 / Java 8
+
 to 
-- [WildFly 42](https://www.wildfly.org/downloads/) / Jakarta EE 10 / Java 25.
+
+ * [WildFly 42](https://www.wildfly.org/downloads/) / Jakarta EE 10 / Java 25.
 
 
 
-### His Favorites
-- JavasLang now vavr: https://vavr.io/
+### Sites presented
+- Javaslang, which became vavr: https://vavr.io/
 - Immutables: https://immutables.github.io/
 
 

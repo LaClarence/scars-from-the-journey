@@ -3,7 +3,6 @@ package me.yanaga.samples.domain.model;
 import com.google.common.collect.ForwardingList;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 

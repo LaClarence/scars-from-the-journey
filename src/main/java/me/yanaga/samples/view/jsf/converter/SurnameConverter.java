@@ -22,7 +22,7 @@ public class SurnameConverter implements Converter<Surname> {
             try {
                 return Surname.of(value);
             } catch (Exception ex) {
-                throw new ConverterException(String.format("Invalid Surname: %s", value));
+                throw new ConverterException(String.format("Invalid Surname: %s", value), ex);
             }
         }
         return null;

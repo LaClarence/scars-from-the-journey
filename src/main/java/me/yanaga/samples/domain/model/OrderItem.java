@@ -1,8 +1,6 @@
 package me.yanaga.samples.domain.model;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
