@@ -8,6 +8,9 @@
     <title>Orders</title>
 </h:head>
 <h:body>
+    <f:metadata>
+        <f:viewAction action="#{orderController.search}"/>
+    </f:metadata>
     <h:form>
         <p:panel header="Orders Search">
             <p:fieldset>
@@ -19,12 +22,12 @@
                     <p:inputText id="product" value="#{orderController.form.product}"/>
                     <p:message for="product"/>
                     <h:panelGroup/>
-                    <p:commandButton value="Search" process="@form" update="@form"/>
+                    <p:commandButton value="Search" action="#{orderController.search}" process="@form" update="@form"/>
                 </h:panelGrid>
             </p:fieldset>
             <p:spacer/>
             <p:fieldset>
-                <p:dataTable id="ordersTable" var="o" value="#{orderController.findAll()}" rowKey="#{o.number}">
+                <p:dataTable id="ordersTable" var="o" value="#{orderController.results}" rowKey="#{o.number}">
                     <p:column style="width: 2rem">
                         <p:rowToggler/>
                     </p:column>
@@ -35,8 +38,7 @@
                         <h:outputText value="#{o.amountOfItems}"/>
                     </p:column>
                     <p:column headerText="Total">
-                        <!-- OrderItems is a List: EL would read ".totalAmount" as an index, so call the method -->
-                        <h:outputText value="#{o.items.getTotalAmount()}">
+                        <h:outputText value="#{o.items.totalAmount}">
                             <f:convertNumber type="currency" currencySymbol="€"/>
                         </h:outputText>
                     </p:column>
@@ -45,7 +47,7 @@
                     </p:column>
 
                     <p:rowExpansion>
-                        <p:dataTable var="i" value="#{o.items}" emptyMessage="None">
+                        <p:dataTable var="i" value="#{o.items.values}" emptyMessage="None">
                             <f:facet name="header">Items</f:facet>
                             <p:column headerText="Product">
                                 <h:outputText value="#{i.product}"/>
@@ -59,7 +61,7 @@
                                 </h:outputText>
                             </p:column>
                         </p:dataTable>
-                        <p:dataTable var="i" value="#{o.abandonedItems}" emptyMessage="None">
+                        <p:dataTable var="i" value="#{o.abandonedItems.values}" emptyMessage="None">
                             <f:facet name="header">Abandoned items</f:facet>
                             <p:column headerText="Product">
                                 <h:outputText value="#{i.product}"/>

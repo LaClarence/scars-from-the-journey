@@ -14,7 +14,7 @@
 
         <version.wildfly>42.0.0.Final</version.wildfly>
         <version.wildfly.maven.plugin>6.2.0.Final</version.wildfly.maven.plugin>
-        <version.jakartaee>10.0.0</version.jakartaee>
+        <version.jakartaee>11.0.0</version.jakartaee>
         <version.primefaces>16.0.1</version.primefaces>
         <version.querydsl>7.7</version.querydsl>
         <version.flyway>13.12.0</version.flyway>
@@ -93,7 +93,7 @@
                         <path>
                             <groupId>jakarta.persistence</groupId>
                             <artifactId>jakarta.persistence-api</artifactId>
-                            <version>3.1.0</version>
+                            <version>3.2.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -116,10 +116,18 @@
                         <layer>jsf</layer>
                         <layer>jpa</layer>
                         <layer>h2-default-datasource</layer>
+                        <layer>logging</layer>
                     </layers>
                     <bootable-jar>true</bootable-jar>
                     <bootable-jar-name>demo-bootable.jar</bootable-jar-name>
                     <name>ROOT.war</name>
+                    <packaging-scripts>
+                        <packaging-script>
+                            <scripts>
+                                <script>${project.basedir}/src/main/wildfly/logging.cli</script>
+                            </scripts>
+                        </packaging-script>
+                    </packaging-scripts>
                 </configuration>
                 <executions>
                     <execution>
@@ -133,7 +141,7 @@
     </build>
 
     <dependencies>
-        <!-- Jakarta EE 10 API, provided by WildFly -->
+        <!-- Jakarta EE 11 API, provided by WildFly -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -154,12 +162,6 @@
             <groupId>io.github.openfeign.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
             <version>${version.querydsl}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <!-- 33.7.2-jre or higher -->
-            <version>33.7.2-jre</version>
         </dependency>
     </dependencies>
 </project>

@@ -8,6 +8,9 @@
     <title>Simple JSF Facelets page</title>
 </h:head>
 <h:body>
+    <f:metadata>
+        <f:viewAction action="#{personController.search}"/>
+    </f:metadata>
     <h:form>
         <p:panel header="People Search">
             <p:fieldset>
@@ -19,12 +22,12 @@
                     <p:inputText id="surname" value="#{personController.form.surname}"/>
                     <p:message for="surname"/>
                     <h:panelGroup/>
-                    <p:commandButton value="Search" process="@form" update="peopleTable"/>
+                    <p:commandButton value="Search" action="#{personController.search}" process="@form" update="peopleTable"/>
                 </h:panelGrid>
             </p:fieldset>
             <p:spacer/>
             <p:fieldset>
-                <p:dataTable id="peopleTable" var="p" value="#{personController.findAll()}">
+                <p:dataTable id="peopleTable" var="p" value="#{personController.results}">
                     <p:column headerText="Name">
                         <h:outputText value="#{p.name}"/>
                     </p:column>

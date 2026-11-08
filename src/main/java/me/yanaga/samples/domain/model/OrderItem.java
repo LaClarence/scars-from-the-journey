@@ -7,38 +7,20 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Embeddable
-public class OrderItem implements Serializable {
+public record OrderItem(Integer amount, String product, BigDecimal price, boolean abandoned) implements Serializable {
 
-    private Integer amount;
-
-    private String product;
-
-    private BigDecimal price;
-
-    protected OrderItem()
-    {}
-    private OrderItem(Integer amount, String product, BigDecimal price) {
-        this.amount = amount;
-        this.product = product;
-        this.price = price;
-    }
-    public static OrderItem of(Integer amount, String product, BigDecimal price) {
+    public OrderItem {
         Objects.requireNonNull(amount);
         Objects.requireNonNull(product);
         Objects.requireNonNull(price);
-        return new OrderItem(amount, product, price);
     }
 
-    public Integer getAmount() {
-        return amount;
+    public static OrderItem of(Integer amount, String product, BigDecimal price) {
+        return new OrderItem(amount, product, price, false);
     }
 
-    public String getProduct() {
-        return product;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
+    public static OrderItem ofAbandoned(Integer amount, String product, BigDecimal price) {
+        return new OrderItem(amount, product, price, true);
     }
 
 }

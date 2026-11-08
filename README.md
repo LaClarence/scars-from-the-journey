@@ -9,7 +9,7 @@ This version has been migrated from:
 
 to 
 
- * [WildFly 42](https://www.wildfly.org/downloads/) / Jakarta EE 10 / Java 25.
+ * [WildFly 42](https://www.wildfly.org/downloads/) / Jakarta EE 11 / Java 25.
 
 
 
@@ -26,7 +26,7 @@ to
 
 ## Stack
 - WildFly 42 packaged as a [Bootable JAR](https://docs.wildfly.org/bootablejar/) (`wildfly-maven-plugin`)
-- Jakarta EE 10 (CDI, Faces, Persistence) with PrimeFaces 16
+- Jakarta EE 11 (CDI, Faces, Persistence) with PrimeFaces 16
 - Hibernate 7 (provided by WildFly), QueryDSL 7 ([OpenFeign fork](https://github.com/OpenFeign/querydsl))
 - H2 in-memory database (`java:jboss/datasources/ExampleDS`), schema and data created by Flyway at startup
 

@@ -1,12 +1,10 @@
 package me.yanaga.samples.domain.model;
 
-import com.google.common.collect.ForwardingList;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
-public class OrderItems extends ForwardingList {
+public class OrderItems {
 
     private final List<OrderItem> value;
 
@@ -19,13 +17,12 @@ public class OrderItems extends ForwardingList {
         return new OrderItems(List.copyOf(value));
     }
 
-    @Override
-    protected List delegate() {
+    public List<OrderItem> getValues() {
         return this.value;
     }
 
     public BigDecimal getTotalAmount() {
-        return this.value.stream().map(OrderItem::getPrice)
+        return this.value.stream().map(OrderItem::price)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

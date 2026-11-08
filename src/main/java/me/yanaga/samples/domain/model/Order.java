@@ -21,11 +21,8 @@ public class Order implements Serializable {
 
     @ElementCollection
     @CollectionTable(name = "ORDER_ITEMS", joinColumns = @JoinColumn(name = "ORDER_ID"))
+    // Both purchased and abandoned items: read them through getItems() and getAbandonedItems()
     private List<OrderItem> items = new ArrayList<>();
-
-    @ElementCollection
-    @CollectionTable(name = "ORDER_ABANDONED_ITEMS", joinColumns = @JoinColumn(name = "ORDER_ID"))
-    private List<OrderItem> abandonedItems = new ArrayList<>();
 
     protected Order() {
     }
@@ -43,10 +40,10 @@ public class Order implements Serializable {
     }
 
     public OrderItems getAbandonedItems() {
-        return OrderItems.of(abandonedItems);
+        return OrderItems.of(items.stream().filter(OrderItem::abandoned).toList());
     }
     public OrderItems getItems() {
-        return OrderItems.of(items);
+        return OrderItems.of(items.stream().filter(item -> !item.abandoned()).toList());
     }
     public void addItem(OrderItem item) {
         Objects.requireNonNull(item);
@@ -55,10 +52,10 @@ public class Order implements Serializable {
     }
 
     public int getAmountOfItems() {
-        return items.size();
+        return getItems().getValues().size();
     }
 
     public int getAmountOfAbandonedItems() {
-        return abandonedItems.size();
+        return getAbandonedItems().getValues().size();
     }
 }

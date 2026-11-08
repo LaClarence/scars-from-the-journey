@@ -2,8 +2,10 @@ package me.yanaga.samples.view;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.JPAExpressions;
 import me.yanaga.samples.domain.model.OrderNumber;
 import me.yanaga.samples.domain.model.QOrder;
+import me.yanaga.samples.domain.model.QOrderItem;
 
 import java.io.Serializable;
 
@@ -26,8 +28,13 @@ public class OrderForm implements Serializable {
             builder.and(QOrder.order.number.eq(number));
         }
         if (product != null && !product.isBlank()) {
-            // Orders having at least one item whose product contains the text
-            builder.and(QOrder.order.items.any().product.containsIgnoreCase(product.trim()));
+            // Orders having at least one non-abandoned item whose product contains the text.
+            // A subquery, so the fetch join still loads all the items of the matching orders
+            QOrderItem item = new QOrderItem("item");
+            builder.and(JPAExpressions.selectOne()
+                    .from(QOrder.order.items, item)
+                    .where(item.abandoned.isFalse(), item.product.containsIgnoreCase(product.trim()))
+                    .exists());
         }
         return builder;
     }

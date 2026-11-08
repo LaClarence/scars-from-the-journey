@@ -3,33 +3,17 @@ package me.yanaga.samples.domain.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Surname implements Serializable, Comparable<Surname> {
+public record Surname(String value) implements Serializable, Comparable<Surname> {
 
-    private final String value;
-
-    private Surname(String value) {
-        this.value = value;
-    }
-
-    public static Surname of(String value) {
+    public Surname {
         Objects.requireNonNull(value);
         if (value.isBlank()) {
             throw new IllegalArgumentException("Surname must not be blank");
         }
+    }
+
+    public static Surname of(String value) {
         return new Surname(value);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Surname other) {
-            return Objects.equals(this.value, other.value);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.value);
     }
 
     @Override
