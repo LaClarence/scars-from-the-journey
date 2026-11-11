@@ -1,39 +1,19 @@
 package me.yanaga.samples.domain.model;
 
-import com.google.common.collect.ComparisonChain;
-
 import java.io.Serializable;
 import java.util.Objects;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+public record Surname(String value) implements Serializable, Comparable<Surname> {
 
-public class Surname implements Serializable, Comparable<Surname> {
-
-    private final String value;
-
-    private Surname(String value) {
-        this.value = value;
+    public Surname {
+        Objects.requireNonNull(value);
+        if (value.isBlank()) {
+            throw new IllegalArgumentException("Surname must not be blank");
+        }
     }
 
     public static Surname of(String value) {
-        checkNotNull(value);
-        checkArgument(value.trim().length() > 0);
         return new Surname(value);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Surname) {
-            Surname other = (Surname) obj;
-            return Objects.equals(this.value, other.value);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.value);
     }
 
     @Override
@@ -43,7 +23,7 @@ public class Surname implements Serializable, Comparable<Surname> {
 
     @Override
     public int compareTo(Surname o) {
-        return ComparisonChain.start().compare(this.value, o.value).result();
+        return this.value.compareTo(o.value);
     }
 
 }

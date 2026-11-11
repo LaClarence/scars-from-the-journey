@@ -1,0 +1,4 @@
+# Applied to the server configuration when the Bootable JAR is built
+/subsystem=logging/logger=org.hibernate.SQL:add(level=DEBUG)
+# The console handler filters at INFO by default; other loggers stay at INFO through the root logger
+/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=DEBUG)

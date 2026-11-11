@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="primefaces"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Orders</title>
+</h:head>
+<h:body>
+    <f:metadata>
+        <f:viewAction action="#{orderController.search}"/>
+    </f:metadata>
+    <h:form>
+        <p:panel header="Orders Search">
+            <p:fieldset>
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="number" value="Order number:"/>
+                    <p:inputText id="number" value="#{orderController.form.number}"/>
+                    <p:message for="number"/>
+                    <p:outputLabel for="product" value="Product:"/>
+                    <p:inputText id="product" value="#{orderController.form.product}"/>
+                    <p:message for="product"/>
+                    <h:panelGroup/>
+                    <p:commandButton value="Search" action="#{orderController.search}" process="@form" update="@form"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:spacer/>
+            <p:fieldset>
+                <p:dataTable id="ordersTable" var="o" value="#{orderController.results}" rowKey="#{o.number}">
+                    <p:column style="width: 2rem">
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="Order number">
+                        <h:outputText value="#{o.number}"/>
+                    </p:column>
+                    <p:column headerText="Items">
+                        <h:outputText value="#{o.amountOfItems}"/>
+                    </p:column>
+                    <p:column headerText="Total">
+                        <h:outputText value="#{o.items.totalAmount}">
+                            <f:convertNumber type="currency" currencySymbol="€"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Abandoned items">
+                        <h:outputText value="#{o.amountOfAbandonedItems}"/>
+                    </p:column>
+
+                    <p:rowExpansion>
+                        <p:dataTable var="i" value="#{o.items.values}" emptyMessage="None">
+                            <f:facet name="header">Items</f:facet>
+                            <p:column headerText="Product">
+                                <h:outputText value="#{i.product}"/>
+                            </p:column>
+                            <p:column headerText="Amount">
+                                <h:outputText value="#{i.amount}"/>
+                            </p:column>
+                            <p:column headerText="Price">
+                                <h:outputText value="#{i.price}">
+                                    <f:convertNumber type="currency" currencySymbol="€"/>
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                        <p:dataTable var="i" value="#{o.abandonedItems.values}" emptyMessage="None">
+                            <f:facet name="header">Abandoned items</f:facet>
+                            <p:column headerText="Product">
+                                <h:outputText value="#{i.product}"/>
+                            </p:column>
+                            <p:column headerText="Amount">
+                                <h:outputText value="#{i.amount}"/>
+                            </p:column>
+                            <p:column headerText="Price">
+                                <h:outputText value="#{i.price}">
+                                    <f:convertNumber type="currency" currencySymbol="€"/>
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </p:fieldset>
+            <p:spacer/>
+            <h:link outcome="index" value="People search"/>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

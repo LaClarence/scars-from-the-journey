@@ -1,19 +1,17 @@
 package me.yanaga.samples.view;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.Expressions;
-import me.yanaga.querydsl.args.core.single.SingleStringArgument;
+import com.querydsl.core.types.dsl.StringExpression;
 import me.yanaga.samples.domain.model.QPerson;
 
 import java.io.Serializable;
 
 public class PersonForm implements Serializable {
 
-    private SingleStringArgument name = SingleStringArgument.of();
+    private String name;
 
-    private SingleStringArgument surname = SingleStringArgument.of();
+    private String surname;
 
     private PersonForm() {
     }
@@ -24,24 +22,31 @@ public class PersonForm implements Serializable {
 
     public Predicate toPredicate() {
         BooleanBuilder builder = new BooleanBuilder();
-        name.append(builder, QPerson.person.name.stringValue());
-        surname.append(builder, QPerson.person.surname.stringValue());
+        appendContains(builder, QPerson.person.name.stringValue(), name);
+        appendContains(builder, QPerson.person.surname.stringValue(), surname);
         return builder;
     }
 
-    public SingleStringArgument getName() {
+    // Same behaviour as querydsl-args' SingleStringArgument: case-insensitive "contains", skipped when empty
+    private static void appendContains(BooleanBuilder builder, StringExpression path, String value) {
+        if (value != null && !value.isBlank()) {
+            builder.and(path.containsIgnoreCase(value.trim()));
+        }
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setName(SingleStringArgument name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public SingleStringArgument getSurname() {
+    public String getSurname() {
         return surname;
     }
 
-    public void setSurname(SingleStringArgument surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 }
