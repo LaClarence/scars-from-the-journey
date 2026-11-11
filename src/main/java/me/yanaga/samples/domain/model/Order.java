@@ -58,4 +58,10 @@ public class Order implements Serializable {
     public int getAmountOfAbandonedItems() {
         return getAbandonedItems().getValues().size();
     }
+
+    // For debugging. Leaves out the items, which may not be loaded
+    @Override
+    public String toString() {
+        return "Order[id=" + id + ", " + number + "]";
+    }
 }

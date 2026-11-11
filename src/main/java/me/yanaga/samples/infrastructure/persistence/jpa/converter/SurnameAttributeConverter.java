@@ -11,7 +11,7 @@ public class SurnameAttributeConverter implements AttributeConverter<Surname, St
     @Override
     public String convertToDatabaseColumn(Surname attribute) {
         if (attribute != null) {
-            return attribute.toString();
+            return attribute.value();
         }
         return null;
     }

@@ -5,10 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Person implements Serializable {
 
+    // Not exposed: a primary key means nothing to the user. toString() shows it for debugging
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,28 +19,32 @@ public class Person implements Serializable {
 
     private Surname surname;
 
-    public Long getId() {
-        return id;
+    // Required by JPA
+    protected Person() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    private Person(Name name, Surname surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public static Person of(Name name, Surname surname) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(surname);
+        return new Person(name, surname);
     }
 
     public Name getName() {
         return name;
     }
 
-    public void setName(Name name) {
-        this.name = name;
-    }
-
     public Surname getSurname() {
         return surname;
     }
 
-    public void setSurname(Surname surname) {
-        this.surname = surname;
+    @Override
+    public String toString() {
+        return "Person[id=" + id + ", " + name + ", " + surname + "]";
     }
 
 }
