@@ -27,7 +27,7 @@
             </p:fieldset>
             <p:spacer/>
             <p:fieldset>
-                <p:dataTable id="ordersTable" var="o" value="#{orderController.results}" rowKey="#{o.number}">
+                <p:dataTable id="ordersTable" var="o" value="#{orderController.results}" rowKey="#{o.number.toInteger()}">
                     <p:column style="width: 2rem">
                         <p:rowToggler/>
                     </p:column>

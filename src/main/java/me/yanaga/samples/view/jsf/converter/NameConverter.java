@@ -31,7 +31,7 @@ public class NameConverter implements Converter<Name> {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Name value) {
         if (value != null) {
-            return value.toString();
+            return value.value();
         }
         return null;
     }

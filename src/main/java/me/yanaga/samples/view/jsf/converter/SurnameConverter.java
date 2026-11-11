@@ -31,7 +31,7 @@ public class SurnameConverter implements Converter<Surname> {
     @Override
     public String getAsString(FacesContext context, UIComponent component, Surname value) {
         if (value != null) {
-            return value.toString();
+            return value.value();
         }
         return null;
     }

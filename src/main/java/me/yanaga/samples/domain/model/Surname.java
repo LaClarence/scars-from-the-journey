@@ -17,11 +17,6 @@ public record Surname(String value) implements Serializable, Comparable<Surname>
     }
 
     @Override
-    public String toString() {
-        return value;
-    }
-
-    @Override
     public int compareTo(Surname o) {
         return this.value.compareTo(o.value);
     }

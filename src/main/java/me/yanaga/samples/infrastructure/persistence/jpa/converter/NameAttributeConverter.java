@@ -11,7 +11,7 @@ public class NameAttributeConverter implements AttributeConverter<Name, String> 
     @Override
     public String convertToDatabaseColumn(Name attribute) {
         if (attribute != null) {
-            return attribute.toString();
+            return attribute.value();
         }
         return null;
     }

@@ -18,11 +18,14 @@ public record OrderNumber(Integer value) implements Serializable, Formattable {
         return new OrderNumber(value);
     }
 
-    @Override
-    public String toString() {
-        return Integer.toString(value);
+    // What the outside world (database, web page) should use, rather than value(),
+    // so the internal representation can change. A record can't make value() private.
+    public Integer toInteger() {
+        return value;
     }
 
+    // For the user: String.format("%s", number) gives "Order number: 1001".
+    // toString() is left as the record's default, for debugging
     @Override
     public void formatTo(Formatter formatter, int flags, int width, int precision) {
         formatter.format("Order number: %d", value);

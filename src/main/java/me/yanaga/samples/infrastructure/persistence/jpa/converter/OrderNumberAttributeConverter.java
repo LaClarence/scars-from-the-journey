@@ -10,7 +10,7 @@ public class OrderNumberAttributeConverter implements AttributeConverter<OrderNu
     @Override
     public Integer convertToDatabaseColumn(OrderNumber attribute) {
         if (attribute != null ) {
-            return attribute.value();
+            return attribute.toInteger();
         }
         return null;
     }

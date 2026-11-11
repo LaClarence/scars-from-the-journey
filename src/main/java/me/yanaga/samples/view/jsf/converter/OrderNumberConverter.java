@@ -28,7 +28,7 @@ public class OrderNumberConverter implements Converter<OrderNumber> {
     @Override
     public String getAsString(FacesContext context, UIComponent component, OrderNumber value) {
         if (value != null) {
-            return value.toString();
+            return String.valueOf(value.toInteger());
         }
         return null;
     }
